@@ -23,24 +23,21 @@ typedef struct	s_room
 
 typedef struct	s_map
 {
-	int 	ents;
+	int 	ants;
 	t_room	**room;
 	t_room	*start;
 	t_room	*end;
-	t_list	*fist_rooms_create; // for begin of algorithm
-	char 	*fist_link; // ??
+	t_list	*first_room_create; // for begin of algorithm
+	char 	*first_link; // ??
 	unsigned max_room; // all
 	t_list	*combination; // roads
 
 }				t_map;
 
-/*
-* tools
-*/
 
 int			main(int a, char **b);
 
-void 		ents(t_map *map, int fd);
+void 		ants(t_map *map, int fd);
 int			comments(char *str);
 int			ft_mini_atoi(char *line);
 void		ft_error(void);
@@ -53,7 +50,7 @@ t_room		*create_room(char **room);
 void		ft_end(t_map *map, int fd, char *str);
 void		over_room(t_map *map, char *str);
 void		rooms_in_array(t_map *map, int *f);
-// тут должна быть проверка на одинаковые комнаты by name
+void		check_double_name(t_map *map);
 void 		ft_sort_array(t_map *map);
 void 		create_links(t_map *map, char *str);
 t_room		*seach_room(t_room **rooms, unsigned i, unsigned j, char *name);

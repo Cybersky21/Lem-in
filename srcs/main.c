@@ -1,16 +1,16 @@
 #include <zconf.h>
 #include "lem_in.h"
 
-void 	ents(t_map *map, int fd)
+void 	ants(t_map *map, int fd)
 {
 	char *str;
 
 	str = NULL;
-	while(map->ents == 0 && get_next_line(fd, &str))
+	while(map->ants == 0 && get_next_line(fd, &str))
 	{
 		if (comments(str))
 			continue;
-		map->ents = ft_mini_atoi(str);
+		map->ants = ft_mini_atoi(str);
 	}
 }
 
@@ -97,9 +97,9 @@ int				main(int a, char **b)
 	ft_bzero(&map, sizeof(map));
 	ents(&map, fd); // +
 	rooms(&map, fd); // +
-	bfs(&map); // LOL
+	bfs(&map); // width search 
 	patch(&map); // collect 1 way
-	test_print(map.fist_rooms_create); // for debug
+	test_print(map.first_room_create); // for debug
 	return (0);
 }
 

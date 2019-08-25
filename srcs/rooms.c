@@ -1,5 +1,27 @@
 #include "lem_in.h"
 
+void	check_double_name(t_map *map)
+{
+	unsigned i;
+	unsigned j;
+
+	i = 0;
+	j = 1;
+	while (i < map->max_room)
+	{
+		while (j < map->max_room)
+		{
+			if (ft_strcmp(map->room[i]->name, map->room[i + j]->name) == 0)
+			{
+				ft_printf("Error: double room names\n");
+				exit(1);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 t_room	*create_room(char **room)
 {
 	t_room	*create;
@@ -7,6 +29,11 @@ t_room	*create_room(char **room)
 	if (!(create = ft_memalloc(sizeof(t_room))))
 		exit(1);
 	create->name = room[0];
+	if (!ft_strncmp(create->name, "L", 1))
+	{
+		ft_printf("Error: not valid room name");
+		exit(1);
+	}
 	create->x = ft_mini_atoi(room[1]);
 	create->y = ft_mini_atoi(room[2]);
 	free(room);
@@ -28,7 +55,7 @@ void	ft_start(t_map *map, int fd, char *str)
 	free(str);
 	map->start = create_room(room);
 	++map->max_room;
-	ft_lstadd(&map->fist_rooms_create, ft_lstnew_ptr(map->start));
+	ft_lstadd(&map->first_room_create, ft_lstnew_ptr(map->start));
 }
 
 void	ft_end(t_map *map, int fd, char *str)
@@ -45,7 +72,7 @@ void	ft_end(t_map *map, int fd, char *str)
 	free(str);
 	map->end = create_room(room);
 	++map->max_room;
-	ft_lstadd(&map->fist_rooms_create, ft_lstnew_ptr(map->end));
+	ft_lstadd(&map->first_room_create, ft_lstnew_ptr(map->end));
 }
 
 void over_room(t_map *map, char *str)
@@ -59,7 +86,7 @@ void over_room(t_map *map, char *str)
 	free(str);
 	temp = create_room(room); // room free in create_room
 	++map->max_room;
-	ft_lstadd(&map->fist_rooms_create, ft_lstnew_ptr(temp));
+	ft_lstadd(&map->first_room_create, ft_lstnew_ptr(temp));
 }
 
 int	ft_start_and_end(t_map *map, int fd, char *str)
@@ -88,7 +115,7 @@ void	rooms_in_array(t_map *map, int *f)
 
 	i = 0;
 	f[0] = 1;
-	temp = map->fist_rooms_create; // save *p
+	temp = map->first_room_create; // save *p
 	if (!(map->room = ft_memalloc(sizeof(t_room *) * map->max_room + 1))) // + NULL
 		exit(1);
 	while (temp) // move on **room IDFKI
@@ -97,9 +124,9 @@ void	rooms_in_array(t_map *map, int *f)
 		++i;
 		temp = temp->next;
 	}
-	free(map->fist_rooms_create); // mb leak but save content
-	map->fist_rooms_create = NULL;
-	// тут должна быть проверка на одинаковые комнаты by name
+	free(map->first_room_create); // mb leak but save content
+	map->first_room_create = NULL;
+	check_double_name(map);
 	ft_sort_array(map);
 	i = 0;
 	while (i < map->max_room) // push index

@@ -24,5 +24,5 @@ void	patch(t_map *map)
 		else
 			temp = temp->next;
 	}
-	way ? ft_lstadd(&map->fist_rooms_create, ft_lstnew_ptr(way)) : 0;
+	way ? ft_lstadd(&map->first_room_create, ft_lstnew_ptr(way)) : 0;
 }
