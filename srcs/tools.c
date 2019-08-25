@@ -2,24 +2,24 @@
 
 int		ft_mini_atoi(char *line)
 {
-	unsigned	ents;
+	unsigned	ants;
 	unsigned	i;
 
-	ents = 0;
+	ants = 0;
 	i = 0;
 	while (line[i])
 	{
 		if (line[i] >= '0' && line[i] <= '9')
 		{
-			ents = ents * 10 + line[i] - '0';
+			ants = ants * 10 + line[i] - '0';
 			++i;
 		}
 		else
 			ft_error(); // "not valid number of ants"
 	}
-	i == 0 || i > 10 || ents > 2147483647 ? ft_error() : 0; // "not valid number of ants"
+	i == 0 || i > 10 || ants > 2147483647 ? ft_error() : 0; // "not valid number of ants"
 	free(line);
-	return (ents);
+	return (ants);
 }
 
 int comments(char *str)
@@ -35,7 +35,7 @@ int comments(char *str)
 
 void ft_error(void)
 {
-	ft_printf("ERROR : INCORENT NUMBER ANTS!");
+	ft_printf("ERROR : INCORRECT NUMBER ANTS!");
 	exit(1);
 }
 
