@@ -62,6 +62,7 @@ t_list		*step(t_list *combination);
 void		last_free(t_list *combination, t_list *new_combination);
 void		restore_room(t_map *map);
 
+
 void		rooms_in_mass(t_map *map, int fd);
 
 #endif

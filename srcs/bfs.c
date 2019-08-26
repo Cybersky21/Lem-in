@@ -81,7 +81,6 @@ int		bfs(t_map *map)
 			combination = new_combination;
 			new_combination = NULL;
 			++gl;
-			ft_printf("\n"); // for debug
 		}
 	}
 	return (0);

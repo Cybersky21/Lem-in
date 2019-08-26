@@ -18,7 +18,7 @@ void	patch(t_map *map)
 		{
 			ft_lstadd(&way, ft_lstnew_ptr(read));
 			temp = read->links;
-			read->isp = 1; // to 0 in some circumstances
+			read->isp = 1; // to 0 in some circumstances 
 			--gl;
 		}
 		else

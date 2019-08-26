@@ -22,7 +22,7 @@ int		ft_mini_atoi(char *line)
 	return (ants);
 }
 
-int comments(char *str)
+int 	comments(char *str)
 {
 	if (str[0] == '#' && (str[1] != '#' || !str[1]))
 	{
@@ -33,7 +33,7 @@ int comments(char *str)
 	return (0);
 }
 
-void ft_error(void)
+void 	ft_error(void)
 {
 	ft_printf("ERROR : INCORRECT NUMBER ANTS!");
 	exit(1);

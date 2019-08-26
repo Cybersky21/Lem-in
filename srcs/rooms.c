@@ -164,5 +164,3 @@ void rooms(t_map *map, int fd)
 			ft_error();
 	}
 }
-
-
