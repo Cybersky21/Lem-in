@@ -10,15 +10,15 @@ void	patch(t_map *map)
 	way = NULL;
 	temp = map->end->links;
 	gl = map->end->gl - 1; // -finish
-	while (temp && gl > -1)
+	while (temp && gl)
 	{
 		read = temp->content;
-		if (read->gl == gl) // wasnt visit
+		temp->content_size = 0; // блокировка направления
+		if (read->gl == gl && !read->isp) // wasnt visit
 		{
 			ft_lstadd(&way, ft_lstnew_ptr(read));
 			temp = read->links;
 			read->isp = 1; // to 0 in some circumstances
-			// block direction
 			--gl;
 		}
 		else

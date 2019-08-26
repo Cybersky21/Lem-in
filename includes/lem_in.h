@@ -56,10 +56,11 @@ void 		create_links(t_map *map, char *str);
 t_room		*seach_room(t_room **rooms, unsigned i, unsigned j, char *name);
 
 int			bfs(t_map *map);
-t_list		*bfs_inc(t_list *startlinks);
-void		up_combination(t_list **new_combination, t_room *room);
+t_list		*bfs_inc(t_list *startlinks, int f);
+void		up_combination(t_list **new_combination, t_room *room, int f);
 t_list		*step(t_list *combination);
-
+void		last_free(t_list *combination, t_list *new_combination);
+void		restore_room(t_map *map);
 
 void		rooms_in_mass(t_map *map, int fd);
 

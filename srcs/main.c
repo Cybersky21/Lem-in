@@ -97,8 +97,11 @@ int				main(int a, char **b)
 	ft_bzero(&map, sizeof(map));
 	ents(&map, fd); // +
 	rooms(&map, fd); // +
-	bfs(&map); // width search 
-	patch(&map); // collect 1 way
+	while (bfs(&map))// width search 
+	{
+		patch(&map); // collect 1 way
+		restore_room(&map);
+	}
 	test_print(map.first_room_create); // for debug
 	return (0);
 }
