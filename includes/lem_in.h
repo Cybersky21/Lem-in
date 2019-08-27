@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/26 19:34:24 by acrooks           #+#    #+#             */
+/*   Updated: 2019/08/26 19:34:25 by acrooks          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
@@ -10,59 +22,60 @@
 
 typedef struct	s_room
 {
-	char	*name;
-	int		x;
-	int		y;
-	int		n; // first, second, etc
-	int		f; // flag was/wasn't
-	int		isp; // was used like f
-	int		gl; // deep or length of road
-	t_list	*links; 
-	int		ant_num; // ??
+	char		*name;
+	int			x;
+	int			y;
+	int			n; // first, second, etc
+	int			f; // flag was/wasn't
+	int			isp; // was used like f
+	int			gl; // deep or length of road
+	t_list		*links; 
+	int			ant_num; // ??
 }				t_room;
 
 typedef struct	s_map
 {
-	int 	ants;
-	t_room	**room;
-	t_room	*start;
-	t_room	*end;
-	t_list	*first_room_create; // for begin of algorithm
-	char 	*first_link; // ??
-	unsigned max_room; // all
-	t_list	*combination; // roads
+	int 		ants;
+	t_room		**room;
+	t_room		*start;
+	t_room		*end;
+	t_list		*first_room_create; // for begin of algorithm
+	char 		*first_link; // ??
+	unsigned	max_room; // all
+	t_list		*combination; // roads
 
 }				t_map;
 
 
-int			main(int a, char **b);
+int				main(int argc, char **argv);
 
-void 		ants(t_map *map, int fd);
-int			comments(char *str);
-int			ft_mini_atoi(char *line);
-void		ft_error(void);
+void 			ants(t_map *map, int fd);
+int				comments(char *str);
+int				ft_mini_atoi(char *line);
+void			ft_error(void);
+void			ft_clean_strstr(char **str);
 
-void		rooms(t_map *map, int fd);
-int			ft_start_and_end(t_map *map, int fd, char *str);
-void		ft_start(t_map *map, int fd, char *str);
-void		components(char **room, int f);
-t_room		*create_room(char **room);
-void		ft_end(t_map *map, int fd, char *str);
-void		over_room(t_map *map, char *str);
-void		rooms_in_array(t_map *map, int *f);
-void		check_double_name(t_map *map);
-void 		ft_sort_array(t_map *map);
-void 		create_links(t_map *map, char *str);
-t_room		*seach_room(t_room **rooms, unsigned i, unsigned j, char *name);
+void			rooms(t_map *map, int fd);
+int				ft_start_and_end(t_map *map, int fd, char *str);
+void			ft_starts(t_map *map, int fd, char *str);
+void			components(char **room, int f);
+t_room			*create_room(char **room);
+void			ft_end(t_map *map, int fd, char *str);
+void			over_room(t_map *map, char *str);
+void			rooms_in_array(t_map *map, int *f);
+void			check_double_name(t_map *map);
+void 			ft_sort_array(t_map *map);
+void 			create_links(t_map *map, char *str);
+t_room			*seach_room(t_room **rooms, unsigned i, unsigned j, char *name);
 
-int			bfs(t_map *map);
-t_list		*bfs_inc(t_list *startlinks, int f);
-void		up_combination(t_list **new_combination, t_room *room, int f);
-t_list		*step(t_list *combination);
-void		last_free(t_list *combination, t_list *new_combination);
-void		restore_room(t_map *map);
+int				bfs(t_map *map);
+t_list			*bfs_inc(t_list *startlinks, int f);
+void			up_combination(t_list **new_combination, t_room *room, int f);
+t_list			*step(t_list *combination);
+void			last_free(t_list *combination, t_list *new_combination);
+void			restore_room(t_map *map);
 
-
-void		rooms_in_mass(t_map *map, int fd);
+void			patch(t_map *map);
+// void			rooms_in_mass(t_map *map, int fd);
 
 #endif
