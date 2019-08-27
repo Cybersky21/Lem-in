@@ -6,7 +6,7 @@
 /*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 19:08:46 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/06/15 02:59:55 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_get
+{
+    t_list	*temp;
+    int		o;
+    char	*s;
+}				t_get;
 
 size_t			ft_strlen(const char *s);
 char			*ft_strdup(const char *s1);
@@ -53,7 +60,6 @@ char			*ft_strnstr(const char *haystack, const char *needle, \
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(const char *str);
-int				ft_atoi_base(const char *str, int base);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
 int				ft_isalnum(int c);
@@ -110,7 +116,6 @@ char			*ft_strjoin_free(char *s1, char *s2, int operation);
 char			*ft_str_toupper(char *str);
 void			ft_swap(int *a, int *b);
 void			ft_uniswap(void *a, void *b, size_t size);
-size_t			ft_strsplit_len(char **split);
 int				ft_printf(const char *format, ...);
 
 #endif

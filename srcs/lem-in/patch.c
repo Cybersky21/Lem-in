@@ -9,21 +9,20 @@ void	patch(t_map *map)
 
 	way = NULL;
 	temp = map->end->links;
-	gl = map->end->gl - 1; // -finish
+	gl = map->end->gl - 1;
 	while (temp && gl)
 	{
 		read = temp->content;
-		if (read->gl == gl && !read->isp) // wasnt visit
+		temp->content_size = 0; // блокировка направления
+		if (read->gl == gl && !read->isp)
 		{
-			temp->content_size = 0; // блокировка направления
 			ft_lstadd(&way, ft_lstnew_ptr(read));
 			temp = read->links;
-			read->isp = 1; // to 0 in some circumstances 
+			read->isp = 1;
 			--gl;
 		}
 		else
 			temp = temp->next;
 	}
-	way ? ft_lstadd(&map->first_room_create, ft_lstnew_ptr(way)) : 0;
+	way ? ft_lstpush(&map->first_room_create, ft_lstnew_ptr(way)) : 0;
 }
-

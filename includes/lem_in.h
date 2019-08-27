@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 19:34:24 by acrooks           #+#    #+#             */
-/*   Updated: 2019/08/27 17:20:47 by acrooks          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
@@ -18,34 +6,35 @@
 # include <limits.h>
 # include <math.h>
 
-# define SECURE_MALLOC(a)	!(a) && memory_error()
-
 typedef struct	s_room
 {
-	char		*name;
-	int			x;
-	int			y;
-	int			n; // first, second, etc
-	int			f; // flag was/wasn't
-	int			isp; // was used like f
-	int			gl; // deep or length of road
-	t_list		*links; 
-	int			ant_num; // ??
+	char	*name;
+	int		x;
+	int		y;
+	int		n;
+	int		f;
+	int		isp;
+	int		gl;
+	t_list	*links;
+	int		ant_num;
 }				t_room;
 
 typedef struct	s_map
 {
-	int 		ants;
-	t_room		**room;
-	t_room		*start;
-	t_room		*end;
-	t_list		*first_room_create; // for begin of algorithm
-	char 		*first_link; // ??
-	unsigned	max_room; // all
-	t_list		*combination; // roads
+	int 	ants;
+	t_room	**room;
+	t_room	*start;
+	t_room	*end;
+	t_list	*first_room_create;
+	char 	*first_link;
+	unsigned max_room;
+	t_list	*combination;
 
 }				t_map;
 
+/*
+* tools
+*/
 
 int				main(int argc, char **argv);
 
@@ -76,6 +65,5 @@ void			last_free(t_list *combination, t_list *new_combination);
 void			restore_room(t_map *map);
 
 void			patch(t_map *map);
-// void			rooms_in_mass(t_map *map, int fd);
 
 #endif

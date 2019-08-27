@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+         #
+#    By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/08/26 19:17:17 by acrooks           #+#    #+#              #
-#    Updated: 2019/08/26 19:17:21 by acrooks          ###   ########.fr        #
+#    Created: 2018/12/15 17:32:16 by jwillem-          #+#    #+#              #
+#    Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := libftprintf.a
 
 PFDIR := ft_printf/
-PF :=   ft_char		parseng		spec 	printf 		ft_printstr		over	\
-	printnbr_logik	 printtnbr	 flagidiux	 ft_printx	 unicod		unicod_str	\
-	float	 floatlong	 floatob	\
+PF :=   create_struct	find_specifier		ft_printf	get_value	handling_specifier \
+		type_a		type_c		type_di		type_e		type_f		type_g		type_oux \
+		type_p		type_percent	type_s	type_non	type_n		rounding_a \
 
 LSTDIR := ft_lst/
 LST :=	ft_lstadd	ft_lstdel	ft_lstdelone	ft_lstiter	ft_lstlen	ft_lstmap \
@@ -35,9 +35,9 @@ STR :=	ft_atoi		ft_close_file	ft_intlen	ft_isalnum	ft_isalpha	ft_isascii	ft_isdi
 		ft_strmap	ft_strmapi	ft_strncat		ft_strncmp		ft_strncpy			ft_strnequ	\
 		ft_strnew	ft_strnstr	ft_strpbrk		ft_strrchr		ft_strsplit			ft_strstr	\
 		ft_strsub	ft_strtoupper	ft_strtrim	ft_tolower		ft_toupper			ft_uitoa_base	\
-		ft_swap		get_next_line 	ft_freesplit				ft_strsplit_len		ft_atoi_base	\
+		get_next_line 	ft_swap		ft_freesplit\
 
-COMPILE := gcc -Wall -Wextra -Werror -g -o2
+COMPILE := gcc -Wall -Wextra -Werror -g
 OBJDIR := obj/
 SRCDIR := srcs/
 INCDIR := includes/

@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/08/26 19:25:22 by acrooks           #+#    #+#              #
-#    Updated: 2019/08/26 19:45:09 by acrooks          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 LEM-IN = lem-in
 
 CC = gcc
@@ -19,8 +7,8 @@ SRCDIR = srcs
 OBJDIR = obj
 
 SRC-LEM-DIR = lem-in/
-LEM-FILES = main	ants	tools	bfs	\
-	free_error	patch	rooms		rooms1	
+LEM-FILES = main	tools	bfs	\
+	patch	rooms	rooms1	
 LEM-OBJ = $(addprefix $(OBJDIR)/$(SRC-LEM-DIR),$(addsuffix .o,$(LEM-FILES)))
 
 LIBFT = ./libft/libftprintf.a 

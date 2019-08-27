@@ -1,12 +1,12 @@
 #include "lem_in.h"
 
-t_list *bfs_inc(t_list *startlinks, int f) // all links from start
+t_list *bfs_inc(t_list *startlinks, int f)
 {
 	t_room	*read;
 	t_list *combination;
 
 	combination = NULL;
-	while (startlinks)
+	while(startlinks)
 	{
 		read = startlinks->content;
 		f && startlinks->content_size && !read->isp && !read->f ? ft_lstadd(&combination, ft_lstnew_ptr(read)) : 0; //возможно слишком сложное условие
@@ -45,29 +45,28 @@ void	up_combination(t_list **new_combination, t_room *room, int f)
 	}
 }
 
-// функция очищает остатки текущей комбинации и то что успело создаться для новой
+//функция очищает остатки текущей комбинации и то что успело создаться для новой
 void	last_free(t_list *combination, t_list *new_combination)
 {
 	ft_lstdel(&combination, NULL);
 	ft_lstdel(&new_combination, NULL);
 }
 
-int		bfs(t_map *map)
+int bfs(t_map *map)
 {
-	t_list		*combination;
-	t_list		*new_combination;
-	t_room		*read;
-	unsigned	gl; // deep
+	t_list	*combination;
+	t_list	*new_combination;
+	t_room	*read;
+	unsigned gl;
 
 	gl = 1;
 	combination = bfs_inc(map->start->links, 1);
 	new_combination = NULL;
-	map->start->f = 1; // was visited
+	map->start->f = 1;
 	while (combination)
 	{
 		read = combination->content;
-		ft_printf("%s ", read->name); // for debug
-		!read->f && !read->isp ? read->gl = gl : 0; // //если мы в этот заход не заходили в комнату и она не используется в текущей комбинации путей
+		!read->f && !read->isp ? read->gl = gl : 0; //если мы в этот заход не заходили в комнату и она не используется в текущей комбинации путей
 		read->f = 1;
 		if (read->n == map->end->n)
 		{
@@ -85,4 +84,3 @@ int		bfs(t_map *map)
 	}
 	return (0);
 }
-

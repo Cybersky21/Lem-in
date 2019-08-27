@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/27 17:49:24 by acrooks           #+#    #+#             */
+/*   Updated: 2019/08/27 17:56:06 by acrooks          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
 int		ft_mini_atoi(char *line)
@@ -7,7 +19,7 @@ int		ft_mini_atoi(char *line)
 
 	ants = 0;
 	i = 0;
-	while (line[i])
+	while(line[i])
 	{
 		if (line[i] >= '0' && line[i] <= '9')
 		{
@@ -15,14 +27,14 @@ int		ft_mini_atoi(char *line)
 			++i;
 		}
 		else
-			ft_error("not valid number of ants"); // "not valid number of ants"
+			ft_error("not valid number of ants");
 	}
-	i == 0 || i > 10 || ants > 2147483647 ? ft_error("not valid number of ants") : 0; // "not valid number of ants"
+	i == 0 || i > 10 || ants > 2147483647 ? ft_error("not valid number") : 0;
 	free(line);
 	return (ants);
 }
 
-int 	comments(char *str)
+int comments(char *str)
 {
 	if (str[0] == '#' && (str[1] != '#' || !str[1]))
 	{
@@ -33,6 +45,11 @@ int 	comments(char *str)
 	return (0);
 }
 
+void 	ft_error(char *str)
+{
+	ft_printf("ERROR: %s\n", str);
+	exit(1);
+}
 
 void	components(char **room, int f)
 {
@@ -41,7 +58,17 @@ void	components(char **room, int f)
 	i = 0;
 	while (room[i])
 		i++;
-	i != 3 && f ? ft_error("not") : 0; // name x y
-	i != 2 && !f ? ft_error("no") : 0; // name0-name1
+	i != 3 && f ? ft_error("not all coordinats") : 0;
+	i != 2 && !f ? ft_error("only one room") : 0;
 }
 
+void	ft_clean_strstr(char **str)
+{
+	size_t i;
+
+	i = 0;
+	while (str && str[i])
+		free(str[i++]);
+	if (str)
+		free(str);
+}
