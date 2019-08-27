@@ -6,7 +6,7 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 19:34:24 by acrooks           #+#    #+#             */
-/*   Updated: 2019/08/26 19:34:25 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/08/27 17:20:47 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				main(int argc, char **argv);
 void 			ants(t_map *map, int fd);
 int				comments(char *str);
 int				ft_mini_atoi(char *line);
-void			ft_error(void);
+void			ft_error(char *str);
 void			ft_clean_strstr(char **str);
 
 void			rooms(t_map *map, int fd);

@@ -12,7 +12,7 @@ void	restore_room(t_map *map)
 
 	combination = bfs_inc(map->start->links, 0);
 	new_combination = NULL;
-	while(combination)
+	while (combination)
 	{
 		read = combination->content;
 		if (read->f || read->gl)
@@ -94,7 +94,7 @@ t_room	*create_room(char **room)
 	}
 	create->x = ft_mini_atoi(room[1]);
 	create->y = ft_mini_atoi(room[2]);
-	free(room);
+	ft_clean_strstr(room);
 	room = NULL;
 	return (create);
 }

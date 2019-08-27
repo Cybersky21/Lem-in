@@ -53,7 +53,7 @@ void 	create_links(t_map *map, char *str)
 	components(room, 0);
 	fist = seach_room(map->room, 0, map->max_room, room[0]);
 	second = seach_room(map->room, 0, map->max_room, room[1]);
-	!fist || !second ? ft_error() : 0; // "dont have first or second room"
+	!fist || !second ? ft_error("dont have first or second room") : 0; // "dont have first or second room"
 	// if we havent got this link, we go ahead, if we have - dont
 	ft_lstadd(&fist->links, ft_lstnew_ptr(second)); //
 	ft_lstadd(&second->links, ft_lstnew_ptr(fist));

@@ -5,12 +5,12 @@ void	ft_starts(t_map *map, int fd, char *str)
 	char **room;
 
 	room = NULL;
-	map->start ? ft_error() : 0; // "double start"
+	map->start ? ft_error("double start") : 0; // "double start"
 	while (get_next_line(fd, &str) && comments(str))
 	{
 	}
 	room = ft_strsplit(str, ' ');
-	room ? components(room, 1) : ft_error();
+	room ? components(room, 1) : ft_error("dont have a room");
 	free(str);
 	map->start = create_room(room);
 	++map->max_room;
@@ -22,12 +22,12 @@ void	ft_end(t_map *map, int fd, char *str)
 	char **room;
 
 	room = NULL;
-	map->end ? ft_error() : 0; // "double end"
+	map->end ? ft_error("double finish") : 0; // "double end"
 	while (get_next_line(fd, &str) && comments(str))
 	{
 	}
 	room = ft_strsplit(str, ' ');
-	room ? components(room, 1) : ft_error();
+	room ? components(room, 1) : ft_error("dont have a room");
 	free(str);
 	map->end = create_room(room);
 	++map->max_room;
@@ -41,7 +41,7 @@ void over_room(t_map *map, char *str)
 
 	room = NULL;
 	room = ft_strsplit(str, ' ');
-	room ? components(room, 1) : ft_error();
+	room ? components(room, 1) : ft_error("dont have a room");
 	free(str);
 	temp = create_room(room); // room free in create_room
 	++map->max_room;
@@ -76,7 +76,7 @@ void rooms(t_map *map, int fd)
 	f = 0;
 	while (get_next_line(fd, &str))
 	{
-		// ft_printf("%s\n", str);
+		ft_printf("%s\n", str);
 		if (comments(str))
 			continue;
 		else if (!f && ft_start_and_end(map, fd, str))
@@ -91,7 +91,7 @@ void rooms(t_map *map, int fd)
 		else if (f && ft_strrchr(str, '-'))
 			create_links(map, str);
 		else
-			ft_error();
+			ft_error("smth wrong with rooms");
 	}
 }
 

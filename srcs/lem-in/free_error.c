@@ -11,8 +11,8 @@ void	ft_clean_strstr(char **str)
 		free(str);
 }
 
-void 	ft_error(void)
+void 	ft_error(char *str)
 {
-	ft_printf("ERROR\n");
+	ft_printf("ERROR: %s\n", str);
 	exit(1);
 }
