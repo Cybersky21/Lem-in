@@ -1,6 +1,6 @@
 #include "lem_in.h"
 
-t_list *bfs_inc(t_list *startlinks, int f)
+t_list	*bfs_inc(t_list *startlinks, int f)
 {
 	t_room	*read;
 	t_list *combination;
@@ -52,7 +52,7 @@ void	last_free(t_list *combination, t_list *new_combination)
 	ft_lstdel(&new_combination, NULL);
 }
 
-int bfs(t_map *map)
+int		bfs(t_map *map)
 {
 	t_list	*combination;
 	t_list	*new_combination;

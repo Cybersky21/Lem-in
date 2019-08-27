@@ -38,25 +38,25 @@ void 	ft_sort_array(t_map *map)
 	}
 }
 
-t_room	*seach_room(t_room **rooms, unsigned i, unsigned j, char *name)
+t_room	*seach_room(t_room **rooms, unsigned st, unsigned f, char *name)
 {
 	unsigned p;
 
-	p = (i + j)/2;
+	p = (st + f)/2;
 	if (!ft_strcmp(name, rooms[p]->name))
 		return (rooms[p]);
-	else if (i == j)
-		ft_error("there's only one room left");
+	else if (st == f)
+		ft_error("not found needed room");
 	else if (ft_strcmp(name, rooms[p]->name) > 0)
-		return (seach_room(rooms, p, j, name));
+		return (seach_room(rooms, p, f, name));
 	else if (ft_strcmp(name, rooms[p]->name) < 0)
-		return (seach_room(rooms, i, p, name));
+		return (seach_room(rooms, st, p, name));
 	return (NULL);
 }
 
 void 	create_links(t_map *map, char *str)
 {
-	char **room;
+	char	**room;
 	t_room	*fist;
 	t_room	*second;
 
@@ -77,7 +77,7 @@ void 	create_links(t_map *map, char *str)
 
 void	test_print(t_list *test)
 {
-	t_list *temp;
+	t_list	*temp;
 	t_room	*read;
 
 	temp = test->content;
@@ -91,8 +91,8 @@ void	test_print(t_list *test)
 
 int				main(int argc, char **argv)
 {
-	int fd;
-	t_map map;
+	int		fd;
+	t_map	map;
 
 	argc = 0;
 	fd = ft_read_file(argv[1]);
