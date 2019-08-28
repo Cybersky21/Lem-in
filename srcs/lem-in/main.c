@@ -1,23 +1,6 @@
 #include <zconf.h>
 #include "lem_in.h"
 
-void 	ants(t_map *map, int fd)
-{
-	char *str;
-
-	str = NULL;
-	while(map->ants == 0 && get_next_line(fd, &str))
-	{
-		if (comments(str))
-		{
-			free(str);
-			str = NULL;
-			continue;
-		}
-		map->ants = ft_mini_atoi(str);
-	}
-}
-
 void 	ft_sort_array(t_map *map)
 {
 	unsigned	i;
@@ -93,6 +76,7 @@ int				main(int argc, char **argv)
 {
 	int		fd;
 	t_map	map;
+	int		i;
 
 	argc = 0;
 	fd = ft_read_file(argv[1]);
@@ -103,6 +87,7 @@ int				main(int argc, char **argv)
 	{
 		patch(&map);
 		restore_room(&map);
+		i = way_cut(&map);
 	}
 	test_print(map.first_room_create);
 	return (0);

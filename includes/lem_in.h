@@ -8,27 +8,27 @@
 
 typedef struct	s_room
 {
-	char	*name;
-	int		x;
-	int		y;
-	int		n;
-	int		f;
-	int		isp;
-	int		gl;
-	t_list	*links;
-	int		ant_num;
+	char		*name;
+	int			x;
+	int			y;
+	int			n;
+	int			f;
+	int			isp;
+	int			gl;
+	t_list		*links;
+	int			ant_num;
 }				t_room;
 
 typedef struct	s_map
 {
-	int 	ants;
-	t_room	**room;
-	t_room	*start;
-	t_room	*end;
-	t_list	*first_room_create;
-	char 	*first_link;
-	unsigned max_room;
-	t_list	*combination;
+	int			ants;
+	t_room		**room;
+	t_room		*start;
+	t_room		*end;
+	t_list		*first_room_create;
+	char		*first_link;
+	unsigned	max_room;
+	t_list		*combination;
 
 }				t_map;
 
@@ -65,5 +65,7 @@ void			last_free(t_list *combination, t_list *new_combination);
 void			restore_room(t_map *map);
 
 void			patch(t_map *map);
+int				way_cut(t_map *map);
+
 
 #endif

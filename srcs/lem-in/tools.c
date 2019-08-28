@@ -6,11 +6,20 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:49:24 by acrooks           #+#    #+#             */
-/*   Updated: 2019/08/27 17:56:06 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/08/28 16:12:47 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+// for bfc
+// функция очищает остатки текущей комбинации и то что успело создаться для новой
+
+void	last_free(t_list *combination, t_list *new_combination)
+{
+	ft_lstdel(&combination, NULL);
+	ft_lstdel(&new_combination, NULL);
+}
 
 int		ft_mini_atoi(char *line)
 {
@@ -34,7 +43,7 @@ int		ft_mini_atoi(char *line)
 	return (ants);
 }
 
-int comments(char *str)
+int		comments(char *str)
 {
 	if (str[0] == '#' && (str[1] != '#' || !str[1]))
 	{

@@ -13,9 +13,9 @@ void	patch(t_map *map)
 	while (temp && gl)
 	{
 		read = temp->content;
-		temp->content_size = 0; // блокировка направления
 		if (read->gl == gl && !read->isp)
 		{
+			temp->content_size = 0; // блокировка направления
 			ft_lstadd(&way, ft_lstnew_ptr(read));
 			temp = read->links;
 			read->isp = 1;
