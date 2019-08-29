@@ -26,3 +26,5 @@ void	patch(t_map *map)
 	}
 	way ? ft_lstpush(&map->first_room_create, ft_lstnew_ptr(way)) : 0;
 }
+
+

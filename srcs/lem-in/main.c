@@ -25,7 +25,9 @@ t_room	*seach_room(t_room **rooms, unsigned st, unsigned f, char *name)
 {
 	unsigned p;
 
-	p = (st + f)/2;
+	p = (st + f) / 2;
+	if (st > f)
+		ft_error("incorrect room name in link");
 	if (!ft_strcmp(name, rooms[p]->name))
 		return (rooms[p]);
 	else if (st == f)
@@ -40,19 +42,19 @@ t_room	*seach_room(t_room **rooms, unsigned st, unsigned f, char *name)
 void 	create_links(t_map *map, char *str)
 {
 	char	**room;
-	t_room	*fist;
+	t_room	*first;
 	t_room	*second;
 
 	room = NULL;
-	fist = NULL;
+	first = NULL;
 	second = NULL;
 	room = ft_strsplit(str, '-');
 	components(room, 0);
-	fist = seach_room(map->room, 0, map->max_room, room[0]);
+	first = seach_room(map->room, 0, map->max_room, room[0]);
 	second = seach_room(map->room, 0, map->max_room, room[1]);
-	!fist || !second ? ft_error("no first or second room") : 0;
-	ft_lstadd(&fist->links, ft_lstnew_ptr(second));
-	ft_lstadd(&second->links, ft_lstnew_ptr(fist));
+	!first || !second ? ft_error("no first or second room") : 0;
+	ft_lstadd(&first->links, ft_lstnew_ptr(second));
+	ft_lstadd(&second->links, ft_lstnew_ptr(first));
 	ft_clean_strstr(room);
 	free(str);
 	str = NULL;
@@ -72,23 +74,61 @@ void	test_print(t_list *test)
 	}
 }
 
+static void	unpacking(t_map *map, t_ind *ind)
+{
+	t_list	*tmp;
+	t_list	*st;
+	t_list	*one;
+
+	t_room	*read;
+	int		index;
+	int		i;
+	
+	index = 1;
+	i = 0;
+	st = map->combination;
+	while (st)
+	{
+		tmp = st->content;
+		while (tmp)
+		{
+			one = tmp->content;
+			while (one) // DELETE THIS
+			{
+				read = one->content;
+				ft_putstr(read->name); // for debug
+				one = one->next;
+			}
+			i = lenways(tmp, index++, map->ants, ind);
+			
+			tmp = tmp->next;
+			ft_putchar('\n'); // debug
+		}
+		st = st->next;
+	}
+}
+
 int				main(int argc, char **argv)
 {
 	int		fd;
 	t_map	map;
-	int		i;
+	t_ind	ind;
 
 	argc = 0;
 	fd = ft_read_file(argv[1]);
 	ft_bzero(&map, sizeof(map));
+	ft_bzero(&ind, sizeof(ind));
 	ants(&map, fd);
 	rooms(&map, fd);
 	while (bfs(&map))
 	{
 		patch(&map);
 		restore_room(&map);
-		i = way_cut(&map);
+		// i = way_cut(&map);
 	}
-	test_print(map.first_room_create);
+	// test_print(map.first_room_create);
+	ft_lstpush(&map.combination, ft_lstnew_ptr(map.first_room_create));
+	map.first_room_create = NULL;
+	unpacking(&map, &ind);
 	return (0);
 }

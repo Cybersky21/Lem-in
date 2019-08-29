@@ -64,7 +64,7 @@ void	ft_end(t_map *map, int fd, char *str)
 
 	room = NULL;
 	map->end ? ft_error("double finish") : 0;
-	while(get_next_line(fd, &str) && comments(str))
+	while (get_next_line(fd, &str) && comments(str))
 	{
 	}
 	room = ft_strsplit(str, ' ');
@@ -91,14 +91,14 @@ void over_room(t_map *map, char *str)
 
 int	ft_start_and_end(t_map *map, int fd, char *str)
 {
-	if(!ft_strcmp(str, "##start"))
+	if (!ft_strcmp(str, "##start"))
 	{
 		free(str);
 		str = NULL;
 		ft_start(map, fd, str);
 		return (1);
 	}
-	else if(!ft_strcmp(str, "##end"))
+	else if (!ft_strcmp(str, "##end"))
 	{
 		free(str);
 		str = NULL;
@@ -143,9 +143,9 @@ void rooms(t_map *map, int fd)
 
 	str = NULL;
 	f = 0;
-	while(get_next_line(fd, &str))
+	while (get_next_line(fd, &str))
 	{
-		// ft_printf("%s\n", str);
+		ft_printf("%s\n", str);
 		if (comments(str))
 			continue;
 		else if (!f && ft_start_and_end(map, fd, str))

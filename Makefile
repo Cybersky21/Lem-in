@@ -8,7 +8,7 @@ OBJDIR = obj
 
 SRC-LEM-DIR = lem-in/
 LEM-FILES = main	tools	bfs	\
-	patch	rooms	rooms1	
+	patch	rooms	rooms1	ants	
 LEM-OBJ = $(addprefix $(OBJDIR)/$(SRC-LEM-DIR),$(addsuffix .o,$(LEM-FILES)))
 
 LIBFT = ./libft/libftprintf.a 
