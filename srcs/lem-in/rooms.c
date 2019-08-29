@@ -127,6 +127,7 @@ void	rooms_in_array(t_map *map, int *f)
 	free(map->first_room_create);
 	map->first_room_create = NULL;
 	check_double_name(map);
+	!map->start || !map->end ? ft_error("no start/finish") : 0;
 	ft_sort_array(map);
 	i = 0;
 	while (i < map->max_room)
@@ -163,5 +164,3 @@ void rooms(t_map *map, int fd)
 			ft_error("something wrong with rooms");
 	}
 }
-
-

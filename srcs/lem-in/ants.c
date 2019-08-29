@@ -29,33 +29,34 @@ void 	ants(t_map *map, int fd)
 	}
 }
 
-int		lenways(t_list *tmp, int i, int ants, t_ind *index)
+void	lenways(t_list *tmp, int i, int ants, t_ind *index, t_list *temp_save)
 {
 	t_list	*list;
 	int		ind;
 	int		was;
+	int		len;
 
 	was = i;
 	ind = 0;
+	len = 0;
 	while (was)
 	{
 		list = tmp->content;
-		ind += ft_lstlen(list) + 2;
-		ft_printf(" %d ", ind); //
+		len += ft_lstlen(list) + 2;
+		// ft_printf(" %d ", ind); //
 		list = tmp->next;
 		--was;
 	}
-	ind = (ind - 1 + ants) / i;
+	ind = (len - 1 + ants) / i;
 	// if (index->index_ram == 0)
 	//	 index->index_ram = ind;
 	if (index->index_ram == 0 || ind < index->index_ram) // i == 1
 	{
 		index->index_ram = ind;
 		index->count_ways = i;
-		index->way = tmp;
+		index->all_ways = temp_save;
 	}
 	ft_printf("%d\n", index->index_ram); //
-	return (ind);
 }
 
 // void	print_moves(t_map *map, int *ants, int *path_tab)

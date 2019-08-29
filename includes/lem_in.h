@@ -34,7 +34,7 @@ typedef struct	s_map
 typedef struct	s_ind
 {
 	int			count_ways; // what combination is
-	t_list		*way; // a-b-g-f
+	t_list		*all_ways; // a-b-g-f
 	int			index_ram;
 }				t_ind;
 
@@ -73,7 +73,7 @@ void			restore_room(t_map *map);
 
 void			patch(t_map *map);
 int				way_cut(t_map *map);
-int				lenways(t_list *tmp, int i, int ants, t_ind *index);
+void			lenways(t_list *tmp, int i, int ants, t_ind *index, t_list *temp_save);
 
 
 

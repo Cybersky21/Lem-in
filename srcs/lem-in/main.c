@@ -24,14 +24,14 @@ void 	ft_sort_array(t_map *map)
 t_room	*seach_room(t_room **rooms, unsigned st, unsigned f, char *name)
 {
 	unsigned p;
-
+ // int i = ft_strcmp 
 	p = (st + f) / 2;
 	if (st > f)
 		ft_error("incorrect room name in link");
-	if (!ft_strcmp(name, rooms[p]->name))
-		return (rooms[p]);
-	else if (st == f)
+	if (st == f - 1 && ft_strcmp(name, rooms[p]->name))
 		ft_error("not found needed room");
+	else if (!ft_strcmp(name, rooms[p]->name))
+		return (rooms[p]);
 	else if (ft_strcmp(name, rooms[p]->name) > 0)
 		return (seach_room(rooms, p, f, name));
 	else if (ft_strcmp(name, rooms[p]->name) < 0)
@@ -74,38 +74,53 @@ void	test_print(t_list *test)
 	}
 }
 
+static	void print_ways(t_ind *ind)
+{
+	t_list	*begin;
+	t_room	*room;
+	t_list	*list;
+	int		i;
+
+	i = 0;
+	begin = ind->all_ways;
+	while (i < ind->count_ways)
+	{
+		list = begin->content;
+		while (list)
+		{
+			room = list->content;
+			ft_printf("%s\n", room->name);
+			list = list->next;
+		}
+		i++;
+		begin = begin->next;
+		ft_putchar('*');
+	}
+}
+
 static void	unpacking(t_map *map, t_ind *ind)
 {
 	t_list	*tmp;
 	t_list	*st;
 	t_list	*one;
-
-	t_room	*read;
 	int		index;
-	int		i;
+	t_list	*temp_save;
 	
 	index = 1;
-	i = 0;
 	st = map->combination;
 	while (st)
 	{
 		tmp = st->content;
+		temp_save = tmp;
 		while (tmp)
 		{
 			one = tmp->content;
-			while (one) // DELETE THIS
-			{
-				read = one->content;
-				ft_putstr(read->name); // for debug
-				one = one->next;
-			}
-			i = lenways(tmp, index++, map->ants, ind);
-			
+			lenways(tmp, index++, map->ants, ind, temp_save);
 			tmp = tmp->next;
-			ft_putchar('\n'); // debug
 		}
 		st = st->next;
 	}
+	print_ways(ind);
 }
 
 int				main(int argc, char **argv)
