@@ -23,18 +23,20 @@ void 	ft_sort_array(t_map *map)
 
 t_room	*seach_room(t_room **rooms, unsigned st, unsigned f, char *name)
 {
-	unsigned p;
- // int i = ft_strcmp 
+	unsigned	p;
+ 	int			i;
+	
 	p = (st + f) / 2;
+	i = ft_strcmp(name, rooms[p]->name);
 	if (st > f)
 		ft_error("incorrect room name in link");
-	if (st == f - 1 && ft_strcmp(name, rooms[p]->name))
+	if (st == f - 1 && i)
 		ft_error("not found needed room");
-	else if (!ft_strcmp(name, rooms[p]->name))
+	else if (!i)
 		return (rooms[p]);
-	else if (ft_strcmp(name, rooms[p]->name) > 0)
+	else if (i > 0)
 		return (seach_room(rooms, p, f, name));
-	else if (ft_strcmp(name, rooms[p]->name) < 0)
+	else if (i < 0)
 		return (seach_room(rooms, st, p, name));
 	return (NULL);
 }
@@ -74,37 +76,35 @@ void	test_print(t_list *test)
 	}
 }
 
-static	void print_ways(t_ind *ind)
-{
-	t_list	*begin;
-	t_room	*room;
-	t_list	*list;
-	int		i;
+// static	void print_ways(t_ind *ind) //
+// {
+// 	t_list	*begin;
+// 	t_room	*room;
+// 	t_list	*list;
+// 	int		i;
 
-	i = 0;
-	begin = ind->all_ways;
-	while (i < ind->count_ways)
-	{
-		list = begin->content;
-		while (list)
-		{
-			room = list->content;
-			ft_printf("%s\n", room->name);
-			list = list->next;
-		}
-		i++;
-		begin = begin->next;
-		ft_putchar('*');
-	}
-}
+// 	i = 0;
+// 	begin = ind->all_ways;
+// 	while (i < ind->count_ways)
+// 	{
+// 		list = begin->content;
+// 		while (list)
+// 		{
+// 			room = list->content;
+// 			list = list->next;
+// 		}
+// 		i++;
+// 		begin = begin->next;
+// 	}
+// }
 
 static void	unpacking(t_map *map, t_ind *ind)
 {
 	t_list	*tmp;
 	t_list	*st;
-	t_list	*one;
 	int		index;
 	t_list	*temp_save;
+	t_list	**list;
 	
 	index = 1;
 	st = map->combination;
@@ -114,13 +114,14 @@ static void	unpacking(t_map *map, t_ind *ind)
 		temp_save = tmp;
 		while (tmp)
 		{
-			one = tmp->content;
 			lenways(tmp, index++, map->ants, ind, temp_save);
 			tmp = tmp->next;
 		}
 		st = st->next;
 	}
-	print_ways(ind);
+	// print_ways(ind);
+	list = recharge(ind);
+	par_rooms(map->end, list, map->ants);
 }
 
 int				main(int argc, char **argv)
@@ -139,11 +140,11 @@ int				main(int argc, char **argv)
 	{
 		patch(&map);
 		restore_room(&map);
-		// i = way_cut(&map);
 	}
-	// test_print(map.first_room_create);
 	ft_lstpush(&map.combination, ft_lstnew_ptr(map.first_room_create));
 	map.first_room_create = NULL;
 	unpacking(&map, &ind);
+	// list = recharge(&ind);
+	// par_rooms()
 	return (0);
 }

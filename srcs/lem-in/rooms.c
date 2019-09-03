@@ -161,6 +161,6 @@ void rooms(t_map *map, int fd)
 		else if (f && ft_strrchr(str, '-'))
 			create_links(map, str);
 		else
-			ft_error("something wrong with rooms");
+			ft_error("something wrong with links");
 	}
 }
