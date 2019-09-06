@@ -6,7 +6,7 @@ t_list	*bfs_inc(t_list *startlinks, int f)
 	t_list *combination;
 
 	combination = NULL;
-	while(startlinks)
+	while (startlinks)
 	{
 		read = startlinks->content;
 		f && startlinks->content_size && !read->isp && !read->f ? ft_lstadd(&combination, ft_lstnew_ptr(read)) : 0; //возможно слишком сложное условие

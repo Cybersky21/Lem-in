@@ -67,13 +67,11 @@ void			last_free(t_list *combination, t_list *new_combination);
 void			restore_room(t_map *map);
 
 void			patch(t_map *map);
-int				way_cut(t_map *map);
-void			lenways(t_list *tmp, int i, int ants, t_ind *index, t_list *temp_save);
+void			print_ants(t_room *start, t_room *finish, t_ind *combo, int ants);
+void			lenways(t_list *tmp, int i, int ants, t_ind *index);
 int				lenways1(t_list *tmp, int i, int ants);
-int				len_ant_way(t_list **list, int i, int ants);
-t_list			**recharge(t_ind *ind);
-void			par_rooms(t_room *finish, t_list **list, int ants);
-void			print_ants(t_list *list, t_room *finish);
-int				check_zero(t_list *list);
+// int				len_ant_way(t_list **list, int i, int ants);
+void			unpacking(t_map *map, t_ind *ind);
+void			way_ants(t_room *finish, t_list *way);
 
 #endif
