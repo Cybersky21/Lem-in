@@ -29,32 +29,3 @@ void	restore_room(t_map *map)
 		}
 	}
 }
-
-// void	saveway()
-// {
-	
-// }
-
-// int		way_cut(t_map *map)
-// {
-// 	int		i;
-// 	t_list	*cut;
-
-// 	cut = NULL;
-// 	i = 0;
-// 	map->start->gl = 0;
-// 	map->start->f = 1;
-// 	while (bfs(map) == 1 && i == 0)
-// 	{
-// 		map->start->gl = 0;
-// 		map->start->f = 1;
-// 		map->end->isp = 1;
-// 		// saveway
-// 		// free room
-// 		// make flags free
-// 	}
-// 	cut ? ft_lstpush(&map->combination, ft_lstnew_ptr(cut)) : 0;
-// 	return (i);
-// }
-
-// void	

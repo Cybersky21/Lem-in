@@ -1,4 +1,3 @@
-#include <zconf.h>
 #include "lem_in.h"
 
 void 	ft_sort_array(t_map *map)
@@ -76,36 +75,15 @@ void	test_print(t_list *test)
 	}
 }
 
-// static	void print_ways(t_ind *ind) //
-// {
-// 	t_list	*begin;
-// 	t_room	*room;
-// 	t_list	*list;
-// 	int		i;
-
-// 	i = 0;
-// 	begin = ind->all_ways;
-// 	while (i < ind->count_ways)
-// 	{
-// 		list = begin->content;
-// 		while (list)
-// 		{
-// 			room = list->content;
-// 			list = list->next;
-// 		}
-// 		i++;
-// 		begin = begin->next;
-// 	}
-// }
-
-int				main(int argc, char **argv)
+int				main(void)
 {
 	int		fd;
 	t_map	map;
 	t_ind	ind;
 
-	argc = 0;
-	fd = ft_read_file(argv[1]);
+	// argc = 0;
+	// fd = ft_read_file(argv[1]);
+	fd = 0;
 	ft_bzero(&map, sizeof(map));
 	ft_bzero(&ind, sizeof(ind));
 	ants(&map, fd);
@@ -118,7 +96,7 @@ int				main(int argc, char **argv)
 	ft_lstpush(&map.combination, ft_lstnew_ptr(map.first_room_create));
 	map.first_room_create = NULL;
 	unpacking(&map, &ind);
-	// list = recharge(&ind);
-	// par_rooms()
+	write(1, "\n", 1);
+	free_map(&map);
 	return (0);
 }

@@ -50,6 +50,7 @@ void	ft_start(t_map *map, int fd, char *str)
 	while (get_next_line(fd, &str) && comments(str))
 	{
 	}
+	ft_printf("%s\n", str);
 	room = ft_strsplit(str, ' ');
 	room ? components(room, 1) : ft_error("dont have a room");
 	free(str);
@@ -67,6 +68,7 @@ void	ft_end(t_map *map, int fd, char *str)
 	while (get_next_line(fd, &str) && comments(str))
 	{
 	}
+	ft_printf("%s\n", str);
 	room = ft_strsplit(str, ' ');
 	room ? components(room, 1) : ft_error("dont have a room");
 	free(str);

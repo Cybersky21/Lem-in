@@ -6,7 +6,7 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:49:24 by acrooks           #+#    #+#             */
-/*   Updated: 2019/08/28 16:12:47 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/09/08 21:33:17 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,85 @@ void	ft_clean_strstr(char **str)
 		free(str[i++]);
 	if (str)
 		free(str);
+}
+
+
+void	free_wayind(t_way *way, t_ind *ind)
+{
+	int i;
+
+	i = 0;
+	ft_lstdel(&ind->all_ways, NULL);
+	ind->all_ways = NULL;
+	while (i < way->i - 1)
+	{
+		ft_lstdel(&way->room[i]->links, NULL);
+		free(way->room[i]->name);
+		way->room[i]->name = NULL;
+		free(way->room[i]);
+		way->room[i] = NULL;
+		++i;
+	}
+}
+
+void	free_save(t_list **save)
+{
+	t_list *temp;
+	t_list *next;
+	t_list *now;
+
+	temp = *save;
+	while (temp)
+	{
+		now = temp->content;
+		ft_lstdel((t_list **)&now, NULL);
+		next = temp->next;
+		free(temp);
+		temp = next;
+	}
+	*save = NULL;
+}
+
+void	free_way(t_list **way)
+{
+	t_list *temp;
+	t_list *save;
+	t_list *next;
+
+	if (*way == NULL)
+		return ;
+	temp = *way;
+	while (temp)
+	{
+		save = temp->content;
+		free_save(&save);
+		next = temp->next;
+		free(temp);
+		temp = NULL;
+		temp = next;
+	}
+	*way = NULL;
+}
+
+void	free_map(t_map *map)
+{
+	unsigned i;
+
+	i = 0;
+	while (i < map->max_room - 1)
+	{
+		ft_lstdel(&map->room[i]->links, NULL);
+		free(map->room[i]->name);
+		map->room[i]->name = NULL;
+		free(map->room[i]);
+		map->room[i] = NULL;
+		++i;
+	}
+	// free(map->max_room);
+	// map->max_room = NULL;
+	ft_lstdel(&map->first_room_create, NULL);
+	map->first_room_create = NULL;
+	free(map->first_link);
+	map->first_link = NULL;
+	free_way(&map->combination);
 }

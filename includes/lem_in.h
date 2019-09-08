@@ -38,7 +38,13 @@ typedef struct	s_ind
 	int			index_ram;
 }				t_ind;
 
-int				main(int argc, char **argv);
+typedef struct	s_way
+{
+	int 		i;
+	t_room		**room;
+}				t_way;
+
+int				main(void);
 
 void 			ants(t_map *map, int fd);
 int				comments(char *str);
@@ -67,11 +73,21 @@ void			last_free(t_list *combination, t_list *new_combination);
 void			restore_room(t_map *map);
 
 void			patch(t_map *map);
-void			print_ants(t_room *start, t_room *finish, t_ind *combo, int ants);
 void			lenways(t_list *tmp, int i, int ants, t_ind *index);
 int				lenways1(t_list *tmp, int i, int ants);
-// int				len_ant_way(t_list **list, int i, int ants);
+int				len_ant_way(t_list **list, int i, int ants);
 void			unpacking(t_map *map, t_ind *ind);
-void			way_ants(t_room *finish, t_list *way);
+
+void			print_ants_on_way(t_way **all, t_room *finish, int ants, t_ind *ind);
+void			combo(t_list *tmp, t_ind *ind, int ants);
+void			print_ants_on_one_way(t_way *way, t_room *finish);
+t_way			**way_transform(t_ind *ind);
+t_room			**room_way_in_array(t_list *way, t_way *link);
+
+void			free_wayind(t_way *way, t_ind *ind);
+void			free_map(t_map *map);
+void			free_way(t_list **way);
+void			free_save(t_list **save);
+
 
 #endif
