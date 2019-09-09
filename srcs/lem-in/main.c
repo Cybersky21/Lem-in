@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/09 21:33:28 by acrooks           #+#    #+#             */
+/*   Updated: 2019/09/09 21:35:02 by acrooks          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-void 	ft_sort_array(t_map *map)
+void	ft_sort_array(t_map *map)
 {
 	unsigned	i;
 	t_room		*temp;
@@ -10,7 +22,7 @@ void 	ft_sort_array(t_map *map)
 	{
 		if (ft_strcmp(map->room[i]->name, map->room[i + 1]->name) > 0)
 		{
-			temp =  map->room[i + 1];
+			temp = map->room[i + 1];
 			map->room[i + 1] = map->room[i];
 			map->room[i] = temp;
 			i = i > 2 ? i - 2 : 0;
@@ -23,8 +35,8 @@ void 	ft_sort_array(t_map *map)
 t_room	*seach_room(t_room **rooms, unsigned st, unsigned f, char *name)
 {
 	unsigned	p;
- 	int			i;
-	
+	int			i;
+
 	p = (st + f) / 2;
 	i = ft_strcmp(name, rooms[p]->name);
 	if (st > f)
@@ -40,7 +52,7 @@ t_room	*seach_room(t_room **rooms, unsigned st, unsigned f, char *name)
 	return (NULL);
 }
 
-void 	create_links(t_map *map, char *str)
+void	create_links(t_map *map, char *str)
 {
 	char	**room;
 	t_room	*first;
@@ -75,14 +87,12 @@ void	test_print(t_list *test)
 	}
 }
 
-int				main(void)
+int		main(void)
 {
 	int		fd;
 	t_map	map;
 	t_ind	ind;
 
-	// argc = 0;
-	// fd = ft_read_file(argv[1]);
 	fd = 0;
 	ft_bzero(&map, sizeof(map));
 	ft_bzero(&ind, sizeof(ind));
@@ -96,7 +106,5 @@ int				main(void)
 	ft_lstpush(&map.combination, ft_lstnew_ptr(map.first_room_create));
 	map.first_room_create = NULL;
 	unpacking(&map, &ind);
-	write(1, "\n", 1);
-	free_map(&map);
 	return (0);
 }

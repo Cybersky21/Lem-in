@@ -6,7 +6,7 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:43:18 by acrooks           #+#    #+#             */
-/*   Updated: 2019/09/08 18:49:43 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/09/09 21:52:30 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_list	*bfs_inc(t_list *startlinks, int f)
 	while (startlinks)
 	{
 		read = startlinks->content;
-		f && startlinks->content_size && !read->isp && !read->f ? ft_lstadd(&combination, ft_lstnew_ptr(read)) : 0;
+		f && startlinks->content_size && !read->isp && !read->f ?
+		ft_lstadd(&combination, ft_lstnew_ptr(read)) : 0;
 		!f ? ft_lstadd(&combination, ft_lstnew_ptr(read)) : 0;
 		startlinks = startlinks->next;
 	}
@@ -51,13 +52,17 @@ void	up_combination(t_list **new_combination, t_room *room, int f)
 	while (links)
 	{
 		read = links->content;
-		f && !read->f && !read->isp ? ft_lstadd(new_combination, ft_lstnew_ptr(read)) : 0;
+		f && !read->f && !read->isp ?
+		ft_lstadd(new_combination, ft_lstnew_ptr(read)) : 0;
 		!f && read->f ? ft_lstadd(new_combination, ft_lstnew_ptr(read)) : 0;
 		links = links->next;
 	}
 }
 
-// combination ? bfc1(combination, new_combination, gl) : 0;
+// int		bfc1(t_map *map, t_list *combination, t_list *new_combination, unsigned gl)
+// {
+	
+// }
 
 int		bfs(t_map *map)
 {

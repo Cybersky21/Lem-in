@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ants.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/09 21:18:28 by acrooks           #+#    #+#             */
+/*   Updated: 2019/09/09 22:00:13 by acrooks          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-void 	ants(t_map *map, int fd)
+void	ants(t_map *map, int fd)
 {
 	char *str;
 
 	str = NULL;
-	while(map->ants == 0 && get_next_line(fd, &str))
+	while (map->ants == 0 && get_next_line(fd, &str))
 	{
 		if (comments(str))
 		{
@@ -43,7 +55,7 @@ void	lenways(t_list *tmp, int i, int ants, t_ind *index)
 	int		ind;
 
 	ind = lenways1(tmp, i, ants);
-	if (index->index_ram == 0 || ind < index->index_ram) // i == 1
+	if (index->index_ram == 0 || ind < index->index_ram)
 	{
 		index->index_ram = ind;
 		index->count_ways = i;
@@ -51,27 +63,27 @@ void	lenways(t_list *tmp, int i, int ants, t_ind *index)
 	}
 }
 
-t_room **room_way_in_array(t_list *way, t_way *link)
+t_room	**room_way_in_array(t_list *way, t_way *link)
 {
-	t_room **room;
-	t_list *temp;
-	unsigned i;
+	t_room		**room;
+	t_list		*temp;
+	unsigned	i;
 
 	link->i = ft_lstlen(way);
 	if (!(room = ft_memalloc(sizeof(t_room *) * (link->i + 1))))
 		exit(1);
 	temp = way;
 	i = 0;
-	while(temp)
+	while (temp)
 	{
 		room[i] = temp->content;
 		++i;
 		temp = temp->next;
 	}
-	return(room);
+	return (room);
 }
 
-t_way **way_transform(t_ind *ind)
+t_way	**way_transform(t_ind *ind)
 {
 	t_way	**all;
 	t_list	*tmp_all;
@@ -80,7 +92,7 @@ t_way **way_transform(t_ind *ind)
 
 	way = 0;
 	tmp_all = ind->all_ways;
-	if (!(all = (t_way **)ft_memalloc(sizeof(t_way *) * ind->count_ways + 1)))
+	if (!(all = (t_way **)ft_memalloc(sizeof(t_way *) * (ind->count_ways + 1))))
 		exit(1);
 	all[ind->count_ways] = NULL;
 	while (way < ind->count_ways)
@@ -91,7 +103,7 @@ t_way **way_transform(t_ind *ind)
 		++way;
 		tmp_all = tmp_all->next;
 	}
-	return(all);
+	return (all);
 }
 
 void	print_ants_on_one_way(t_way *way, t_room *finish)
@@ -106,13 +118,13 @@ void	print_ants_on_one_way(t_way *way, t_room *finish)
 		if (room[len + 1] && room[len]->ant_num)
 		{
 			room[len + 1]->ant_num = room[len]->ant_num;
-			ft_printf("L%d-%s ",room[len + 1]->ant_num, room[len + 1]->name);
+			ft_printf("L%d-%s ", room[len + 1]->ant_num, room[len + 1]->name);
 			room[len]->ant_num = 0;
 		}
 		else if (!room[len + 1] && room[len]->ant_num)
 		{
 			++finish->ant_num;
-			ft_printf("L%d-%s ",room[len]->ant_num, finish->name);
+			ft_printf("L%d-%s ", room[len]->ant_num, finish->name);
 			room[len]->ant_num = 0;
 		}
 		--len;
@@ -121,19 +133,19 @@ void	print_ants_on_one_way(t_way *way, t_room *finish)
 
 void	combo(t_list *tmp, t_ind *ind, int ants)
 {
-	int 	len_comb;
-	int		index;
+	int	len_comb;
+	int	index;
 
 	index = 1;
 	len_comb = ft_lstlen(tmp);
 	while (len_comb)
 	{
-		lenways(tmp, index++,ants, ind);
+		lenways(tmp, index++, ants, ind);
 		--len_comb;
 	}
 }
 
-void	print_ants_on_way(t_way **all, t_room *finish, int ants, t_ind *ind)
+void	print_ants_on_way(t_way **r, t_room *finish, int ants, t_ind *ind)
 {
 	int		a;
 	int		i;
@@ -143,17 +155,17 @@ void	print_ants_on_way(t_way **all, t_room *finish, int ants, t_ind *ind)
 	{
 		i = 0;
 		ft_putchar('\n');
-		while (all[i])
+		while (r[i])
 		{
-			print_ants_on_one_way(all[i], finish);
+			print_ants_on_one_way(r[i], finish);
 			++i;
 		}
 		i = 0;
 		combo(ind->all_ways, ind, ants - a + 1);
 		while (a <= ants && i < ind->count_ways)
 		{
-			all[i]->room[0]->ant_num = a;
-			ft_printf("L%d-%s ",all[i]->room[0]->ant_num, all[i]->room[0]->name);
+			r[i]->room[0]->ant_num = a;
+			ft_printf("L%d-%s ", r[i]->room[0]->ant_num, r[i]->room[0]->name);
 			++i;
 			++a;
 		}
@@ -164,7 +176,7 @@ void	unpacking(t_map *map, t_ind *ind)
 {
 	t_list	*tmp;
 	t_list	*st;
-	t_way **all;
+	t_way	**all;
 
 	st = map->combination;
 	while (st)
@@ -175,5 +187,7 @@ void	unpacking(t_map *map, t_ind *ind)
 	}
 	all = way_transform(ind);
 	print_ants_on_way(all, map->end, map->ants, ind);
-	free_wayind(*all, ind);
+	write(1, "\n", 1);
+	free_array(all);
+	free_map(map);
 }

@@ -66,6 +66,7 @@ void 			create_links(t_map *map, char *str);
 t_room			*seach_room(t_room **rooms, unsigned i, unsigned j, char *name);
 
 int				bfs(t_map *map);
+int				bfc1(t_list *combination, t_list *new_combination);
 t_list			*bfs_inc(t_list *startlinks, int f);
 void			up_combination(t_list **new_combination, t_room *room, int f);
 t_list			*step(t_list *combination);
@@ -84,10 +85,10 @@ void			print_ants_on_one_way(t_way *way, t_room *finish);
 t_way			**way_transform(t_ind *ind);
 t_room			**room_way_in_array(t_list *way, t_way *link);
 
-void			free_wayind(t_way *way, t_ind *ind);
+void			free_array(t_way **all);
 void			free_map(t_map *map);
-void			free_way(t_list **way);
-void			free_save(t_list **save);
+void			free_way(t_list *combo);
+void			free_combination(t_list *combo);
 
 
 #endif

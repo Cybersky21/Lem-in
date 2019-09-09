@@ -6,14 +6,11 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:49:24 by acrooks           #+#    #+#             */
-/*   Updated: 2019/09/08 21:33:17 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/09/09 22:54:28 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-// for bfc
-// функция очищает остатки текущей комбинации и то что успело создаться для новой
 
 void	last_free(t_list *combination, t_list *new_combination)
 {
@@ -28,7 +25,7 @@ int		ft_mini_atoi(char *line)
 
 	ants = 0;
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
 		if (line[i] >= '0' && line[i] <= '9')
 		{
@@ -82,62 +79,48 @@ void	ft_clean_strstr(char **str)
 		free(str);
 }
 
-
-void	free_wayind(t_way *way, t_ind *ind)
+void	free_array(t_way **all)
 {
-	int i;
+	unsigned i;
 
 	i = 0;
-	ft_lstdel(&ind->all_ways, NULL);
-	ind->all_ways = NULL;
-	while (i < way->i - 1)
+	while (all[i])
 	{
-		ft_lstdel(&way->room[i]->links, NULL);
-		free(way->room[i]->name);
-		way->room[i]->name = NULL;
-		free(way->room[i]);
-		way->room[i] = NULL;
+		free(all[i]);
 		++i;
 	}
 }
 
-void	free_save(t_list **save)
+void	free_way(t_list *combo)
 {
-	t_list *temp;
-	t_list *next;
-	t_list *now;
+	t_list	*next;
+	t_list	*vn;
 
-	temp = *save;
-	while (temp)
+	next = combo->next;
+	while(combo)
 	{
-		now = temp->content;
-		ft_lstdel((t_list **)&now, NULL);
-		next = temp->next;
-		free(temp);
-		temp = next;
+		vn = combo->content;
+		ft_lstdel(&vn, NULL);
+		free(combo);
+		combo = next;
+		if (combo)
+			next = combo->next;
 	}
-	*save = NULL;
 }
 
-void	free_way(t_list **way)
+void	free_combination(t_list *combo)
 {
-	t_list *temp;
-	t_list *save;
 	t_list *next;
+	t_list *way_combo;
 
-	if (*way == NULL)
-		return ;
-	temp = *way;
-	while (temp)
+	next = combo->next;
+	while (combo)
 	{
-		save = temp->content;
-		free_save(&save);
-		next = temp->next;
-		free(temp);
-		temp = NULL;
-		temp = next;
+		way_combo = combo->content;
+		free_way(way_combo);
+		free(combo);
+		combo = next;
 	}
-	*way = NULL;
 }
 
 void	free_map(t_map *map)
@@ -145,20 +128,14 @@ void	free_map(t_map *map)
 	unsigned i;
 
 	i = 0;
-	while (i < map->max_room - 1)
+	free_combination(map->combination);
+	while (map->room[i])
 	{
-		ft_lstdel(&map->room[i]->links, NULL);
 		free(map->room[i]->name);
-		map->room[i]->name = NULL;
-		free(map->room[i]);
+		ft_lstdel(&map->room[i]->links, NULL);
 		map->room[i] = NULL;
 		++i;
 	}
-	// free(map->max_room);
-	// map->max_room = NULL;
-	ft_lstdel(&map->first_room_create, NULL);
-	map->first_room_create = NULL;
-	free(map->first_link);
-	map->first_link = NULL;
-	free_way(&map->combination);
+	free(map->room);
+	map->room = NULL;
 }
