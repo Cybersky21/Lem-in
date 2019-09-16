@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/09 21:33:28 by acrooks           #+#    #+#             */
-/*   Updated: 2019/09/09 21:35:02 by acrooks          ###   ########.fr       */
+/*   Created: 2019/09/10 15:27:21 by acrooks           #+#    #+#             */
+/*   Updated: 2019/09/10 15:29:12 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 void	ft_sort_array(t_map *map)
 {
 	unsigned	i;
+	int			n;
 	t_room		*temp;
 
 	i = 0;
 	while (i < map->max_room - 1)
 	{
-		if (ft_strcmp(map->room[i]->name, map->room[i + 1]->name) > 0)
+		n = ft_strcmp(map->room[i]->name, map->room[i + 1]->name);
+		!n ? ft_error("duble names") : 0;
+		if (n > 0)
 		{
 			temp = map->room[i + 1];
 			map->room[i + 1] = map->room[i];
@@ -65,26 +68,11 @@ void	create_links(t_map *map, char *str)
 	components(room, 0);
 	first = seach_room(map->room, 0, map->max_room, room[0]);
 	second = seach_room(map->room, 0, map->max_room, room[1]);
-	!first || !second ? ft_error("no first or second room") : 0;
 	ft_lstadd(&first->links, ft_lstnew_ptr(second));
 	ft_lstadd(&second->links, ft_lstnew_ptr(first));
 	ft_clean_strstr(room);
 	free(str);
 	str = NULL;
-}
-
-void	test_print(t_list *test)
-{
-	t_list	*temp;
-	t_room	*read;
-
-	temp = test->content;
-	while (temp)
-	{
-		read = temp->content;
-		ft_printf("%s\n", read->name);
-		temp = temp->next;
-	}
 }
 
 int		main(void)
@@ -103,6 +91,7 @@ int		main(void)
 		patch(&map);
 		restore_room(&map);
 	}
+	!map.first_room_create ? ft_error("no ways") : 0;
 	ft_lstpush(&map.combination, ft_lstnew_ptr(map.first_room_create));
 	map.first_room_create = NULL;
 	unpacking(&map, &ind);

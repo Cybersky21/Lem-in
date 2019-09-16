@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jwillem- <jwillem-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 19:08:46 by jwillem-          #+#    #+#             */
-/*   Updated: 2019/05/15 13:37:08 by gabshire         ###   ########.fr       */
+/*   Updated: 2019/09/10 15:39:32 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct	s_list
 
 typedef struct	s_get
 {
-    t_list	*temp;
-    int		o;
-    char	*s;
+	t_list		*temp;
+	int			o;
+	char		*s;
 }				t_get;
 
 size_t			ft_strlen(const char *s);

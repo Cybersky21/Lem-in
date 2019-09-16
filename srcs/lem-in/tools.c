@@ -6,7 +6,7 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:49:24 by acrooks           #+#    #+#             */
-/*   Updated: 2019/09/09 22:54:28 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:33:07 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,17 @@ int		comments(char *str)
 		str = NULL;
 		return (1);
 	}
+	if (str[0] && str[1] && str[0] == '#' && str[1] == '#'
+		&& ft_strcmp(str, "##end") && ft_strcmp(str, "##start"))
+	{
+		free(str);
+		str = NULL;
+		return (1);
+	}
 	return (0);
 }
 
-void 	ft_error(char *str)
+void	ft_error(char *str)
 {
 	ft_printf("ERROR: %s\n", str);
 	exit(1);
@@ -66,76 +73,4 @@ void	components(char **room, int f)
 		i++;
 	i != 3 && f ? ft_error("not all coordinats") : 0;
 	i != 2 && !f ? ft_error("only one room") : 0;
-}
-
-void	ft_clean_strstr(char **str)
-{
-	size_t i;
-
-	i = 0;
-	while (str && str[i])
-		free(str[i++]);
-	if (str)
-		free(str);
-}
-
-void	free_array(t_way **all)
-{
-	unsigned i;
-
-	i = 0;
-	while (all[i])
-	{
-		free(all[i]);
-		++i;
-	}
-}
-
-void	free_way(t_list *combo)
-{
-	t_list	*next;
-	t_list	*vn;
-
-	next = combo->next;
-	while(combo)
-	{
-		vn = combo->content;
-		ft_lstdel(&vn, NULL);
-		free(combo);
-		combo = next;
-		if (combo)
-			next = combo->next;
-	}
-}
-
-void	free_combination(t_list *combo)
-{
-	t_list *next;
-	t_list *way_combo;
-
-	next = combo->next;
-	while (combo)
-	{
-		way_combo = combo->content;
-		free_way(way_combo);
-		free(combo);
-		combo = next;
-	}
-}
-
-void	free_map(t_map *map)
-{
-	unsigned i;
-
-	i = 0;
-	free_combination(map->combination);
-	while (map->room[i])
-	{
-		free(map->room[i]->name);
-		ft_lstdel(&map->room[i]->links, NULL);
-		map->room[i] = NULL;
-		++i;
-	}
-	free(map->room);
-	map->room = NULL;
 }

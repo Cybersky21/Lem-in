@@ -6,7 +6,7 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:36:06 by acrooks           #+#    #+#             */
-/*   Updated: 2019/09/09 21:37:40 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:41:33 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ void	rooms_in_array(t_map *map, int *f)
 	{
 		map->room[i] = temp->content;
 		++i;
-		temp = temp->next;
+		temp = step(temp);
 	}
-	free(map->first_room_create);
 	map->first_room_create = NULL;
-	check_double_name(map);
 	!map->start || !map->end ? ft_error("no start/finish") : 0;
 	ft_sort_array(map);
 	i = 0;
@@ -64,28 +62,6 @@ void	rooms_in_array(t_map *map, int *f)
 	{
 		map->room[i]->n = i;
 		++i;
-	}
-}
-
-void	check_double_name(t_map *map)
-{
-	unsigned i;
-	unsigned j;
-
-	i = 0;
-	j = 1;
-	while (i < map->max_room)
-	{
-		while (j < map->max_room)
-		{
-			if (ft_strcmp(map->room[i]->name, map->room[i + j]->name) == 0)
-			{
-				ft_printf("Error: double room names\n");
-				exit(1);
-			}
-			j++;
-		}
-		i++;
 	}
 }
 

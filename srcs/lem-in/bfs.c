@@ -6,13 +6,13 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:43:18 by acrooks           #+#    #+#             */
-/*   Updated: 2019/09/09 21:52:30 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:41:08 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_list	*bfs_inc(t_list *startlinks, int f)
+t_list		*bfs_inc(t_list *startlinks, int f)
 {
 	t_room	*read;
 	t_list	*combination;
@@ -29,7 +29,7 @@ t_list	*bfs_inc(t_list *startlinks, int f)
 	return (combination);
 }
 
-t_list	*step(t_list *combination)
+t_list		*step(t_list *combination)
 {
 	t_list *next;
 
@@ -43,7 +43,7 @@ t_list	*step(t_list *combination)
 	return (next);
 }
 
-void	up_combination(t_list **new_combination, t_room *room, int f)
+void		up_combination(t_list **new_combination, t_room *room, int f)
 {
 	t_room	*read;
 	t_list	*links;
@@ -59,22 +59,24 @@ void	up_combination(t_list **new_combination, t_room *room, int f)
 	}
 }
 
-// int		bfc1(t_map *map, t_list *combination, t_list *new_combination, unsigned gl)
-// {
-	
-// }
+static void	bfs_norminette(unsigned *gl, t_list **combination,
+	t_list **new_combination, t_map *map)
+{
+	(*gl) = 1;
+	(*combination) = bfs_inc((map)->start->links, 1);
+	(*new_combination) = NULL;
+	(map)->start->f = 1;
+}
 
-int		bfs(t_map *map)
+int			bfs(t_map *map)
 {
 	t_list		*combination;
+	t_list		*combination1;
 	t_list		*new_combination;
 	t_room		*read;
 	unsigned	gl;
 
-	gl = 1;
-	combination = bfs_inc(map->start->links, 1);
-	new_combination = NULL;
-	map->start->f = 1;
+	bfs_norminette(&gl, &combination, &new_combination, map);
 	while (combination)
 	{
 		read = combination->content;
@@ -87,12 +89,10 @@ int		bfs(t_map *map)
 		}
 		up_combination(&new_combination, read, 1);
 		combination = step(combination);
-		if (!combination)
-		{
-			combination = new_combination;
-			new_combination = NULL;
-			++gl;
-		}
+		combination1 = combination;
+		combination = combination1 ? combination : new_combination;
+		new_combination = combination1 ? new_combination : NULL;
+		gl = combination1 ? gl : (gl + 1);
 	}
 	return (0);
 }

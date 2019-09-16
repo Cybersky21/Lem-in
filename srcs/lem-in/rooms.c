@@ -6,13 +6,13 @@
 /*   By: acrooks <acrooks@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 21:35:28 by acrooks           #+#    #+#             */
-/*   Updated: 2019/09/09 21:37:36 by acrooks          ###   ########.fr       */
+/*   Updated: 2019/09/10 15:30:46 by acrooks          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_room	*create_room(char **room)
+t_room		*create_room(char **room)
 {
 	t_room	*create;
 
@@ -31,7 +31,7 @@ t_room	*create_room(char **room)
 	return (create);
 }
 
-void	ft_start(t_map *map, int fd, char *str)
+static void	ft_start(t_map *map, int fd, char *str)
 {
 	char **room;
 
@@ -49,7 +49,7 @@ void	ft_start(t_map *map, int fd, char *str)
 	ft_lstadd(&map->first_room_create, ft_lstnew_ptr(map->start));
 }
 
-void	ft_end(t_map *map, int fd, char *str)
+static void	ft_end(t_map *map, int fd, char *str)
 {
 	char **room;
 
@@ -67,7 +67,7 @@ void	ft_end(t_map *map, int fd, char *str)
 	ft_lstadd(&map->first_room_create, ft_lstnew_ptr(map->end));
 }
 
-int		ft_start_and_end(t_map *map, int fd, char *str)
+static int	ft_start_and_end(t_map *map, int fd, char *str)
 {
 	if (!ft_strcmp(str, "##start"))
 	{
@@ -86,7 +86,7 @@ int		ft_start_and_end(t_map *map, int fd, char *str)
 	return (0);
 }
 
-void	rooms(t_map *map, int fd)
+void		rooms(t_map *map, int fd)
 {
 	char	*str;
 	int		f;
@@ -112,4 +112,5 @@ void	rooms(t_map *map, int fd)
 		else
 			ft_error("something wrong with links");
 	}
+	!map->room ? ft_error("no links") : 0;
 }
